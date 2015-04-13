@@ -14,9 +14,11 @@ public class TileMap {
     private Tile[][] tiles;
     private int endX; // startX will obviously be zero
     private int startY, endY; // at what point should i start drawing and at what point should I stop?
+    private boolean isrand;
 
-    public TileMap(){ // TODO for now just generate tiles
+    public TileMap(boolean isrand){ // TODO for now just generate tiles
         tiles = new Tile[Display.CHUNK_WIDTH][Display.CHUNK_WIDTH];
+        this.isrand = isrand;
         populateTileMap();
     }
 
@@ -26,9 +28,12 @@ public class TileMap {
 
         for(int x = 0; x < tiles.length; x++){
             for(int y = 0; y < tiles.length; y++){
-                grass = random.nextBoolean();
+                if(isrand){
+                    grass = random.nextBoolean();
+                }
 
-                if(grass){
+
+                if(!grass){
                     tiles[x][y] = new Tile("res/concept/scenery/someground.png");
                 } else {
                     tiles[x][y] = new Tile("res/concept/scenery/somethingelse.png");

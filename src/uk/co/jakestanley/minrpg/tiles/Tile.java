@@ -18,7 +18,7 @@ public class Tile {
         }
     }
 
-    public Image getImage(){
+    public Image getImage() {
         return image;
     }
 

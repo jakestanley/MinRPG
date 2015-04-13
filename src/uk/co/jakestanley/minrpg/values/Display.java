@@ -27,7 +27,7 @@ public class Display {
 
     // WORLD COMPONENTS
     public static final int TILE_WIDTH = 8; // tiles will be 8px square, maybe 16, i'm unsure yet...
-    public static final int CHUNK_WIDTH = 64; // 64x64 tile chunks
+    public static final int CHUNK_WIDTH = 16;
 
     private int scale;
     private int renderScale; // TODO FIX so I know what this is, it's used by graphics.scale
