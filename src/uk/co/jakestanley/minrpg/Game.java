@@ -15,6 +15,10 @@ public class Game extends BasicGame {
     private Character c;
     private Rectangle sky;
     private World world;
+    private float shade;
+    private boolean polarity;
+
+
 
     public Game(String gameName){
         super(gameName);
@@ -24,14 +28,18 @@ public class Game extends BasicGame {
     public void init(GameContainer gameContainer) throws SlickException {
         c = new Character("res/concept/pc");
         sky = new Rectangle(0, 0, Display.BASE_WIDTH, Display.SKY_HEIGHT); // wide as the screen
-        world = new World(0,0,0,0);
+        world = new World(Display.START_CHUNK_X, Display.START_CHUNK_Y); // should start at the centre chunk. only for prototyping now, will change later
+        shade = 0.01F;
+        polarity = true;
     }
 
     @Override
     public void update(GameContainer gameContainer, int i) throws SlickException {
+
         if(gameContainer.getInput().isKeyDown(Input.KEY_UP)){
 //            c.moveNorth();
             world.modOffsetY(1);
+
 
         }
 
@@ -58,11 +66,18 @@ public class Game extends BasicGame {
         graphics.scale(Main.display.getRenderScale(), Main.display.getRenderScale()); // TODO make more efficient
 
         graphics.setColor(Color.white);
-        graphics.drawString(Items.Names.GAME_BOY, 10, 40);
+        graphics.drawString(Items.Names.POKEMON_YELLOW, 10, 40);
 
         world.render(graphics);
         drawSky(graphics);
         drawCharacter(graphics);
+
+        // shading stuff. TODO needs improvement
+        Color color = new Color(0, 0, 0, shade);
+        graphics.setColor(color);
+        graphics.fillRect(0, 0, 900, 600);
+
+        world.renderData(graphics);
 
     }
 

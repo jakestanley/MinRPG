@@ -28,12 +28,15 @@ public class Display {
     // WORLD COMPONENTS
     public static final int TILE_WIDTH = 8; // tiles will be 8px square, maybe 16, i'm unsure yet...
     public static final int CHUNK_WIDTH = 16;
+    public static final int CHUNK_CACHE_WIDTH = 7; // depends on amount of memory available
+    public static final int START_CHUNK_X = 3; // what chunk should i spawn in?
+    public static final int START_CHUNK_Y = 3;
 
     private int scale;
     private int renderScale; // TODO FIX so I know what this is, it's used by graphics.scale
     private int width;
     private int height;
-    private int skyHeight;
+    private int skyHeight; // wat
 
     public Display(){
         this.scale = DEFAULT_SCALE;
@@ -78,6 +81,10 @@ public class Display {
     public int getCenterTileY(){
         return (GB_HEIGHT + getSkyHeight()) / 2; // TODO FIX and do some stuff with sky height
 //        return 50;
+    }
+
+    public int getChunkRenderWidth(){
+        return getTileWidth() * CHUNK_WIDTH;
     }
 
 }

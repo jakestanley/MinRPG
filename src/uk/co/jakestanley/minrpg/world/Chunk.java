@@ -15,13 +15,25 @@ public class Chunk {
     private TileMap tiles;
     private boolean isrand;
 
-    public Chunk(int x, int y, boolean isrand){ // TODO many constructors depending on use case
+    public Chunk(boolean isrand){ // TODO many constructors depending on use case
         this.tiles = new TileMap(isrand);
+//        this.x = x;
+//        this.y = y;
+//        this.offsetX = 0; // TODO make sure this gets changed soon
+//        this.offsetY = 0;
+        this.isrand = isrand;
+    }
+
+    /**
+     * Needs to be called before rendering if back into visibility
+     * @param x
+     * @param y
+     */
+    public void spawnAt(int x, int y){
         this.x = x;
         this.y = y;
-        this.offsetX = 0; // TODO make sure this gets changed soon
+        this.offsetX = 0;
         this.offsetY = 0;
-        this.isrand = isrand;
     }
 
     public Chunk(String data){
