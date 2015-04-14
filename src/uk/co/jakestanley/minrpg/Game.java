@@ -37,24 +37,18 @@ public class Game extends BasicGame {
     public void update(GameContainer gameContainer, int i) throws SlickException {
 
         if(gameContainer.getInput().isKeyDown(Input.KEY_UP)){
-//            c.moveNorth();
             world.modOffsetY(1);
-
-
         }
 
         if(gameContainer.getInput().isKeyDown(Input.KEY_RIGHT)){
-//            c.moveRight();
             world.modOffsetX(-1); // TODO set some values
         }
 
         if(gameContainer.getInput().isKeyDown(Input.KEY_DOWN)){
-//            c.moveSouth();
             world.modOffsetY(-1);
         }
 
         if(gameContainer.getInput().isKeyDown(Input.KEY_LEFT)){
-//            c.moveLeft();
             world.modOffsetX(1);
         }
 
