@@ -48,6 +48,19 @@ public class Chunk {
         this.offsetY = offsetY;
     }
 
+    public void clearOffsetX(){
+        offsetX = 0;
+    }
+
+    public void clearOffsetY(){
+        offsetY = 0;
+    }
+
+    public void clearOffsets(){
+        offsetX = 0;
+        offsetY = 0;
+    }
+
     public void render(Graphics graphics){
         tiles.render(x + offsetX, y + Main.display.getSkyHeight() + offsetY, graphics); // TODO remove a lot of the bullshit extra code rather than having everything super complex
     }
