@@ -25,8 +25,7 @@ public class Display {
 
     // WORLD COMPONENTS
     public static final int TILE_WIDTH = 8; // tiles will be 8px square, maybe 16, i'm unsure yet...
-//    public static final int CHUNK_WIDTH = 16;
-    public static final int CHUNK_WIDTH = 2; // only for testing chunk render stuff. // TODO bump back up to 16 after
+    public static final int CHUNK_WIDTH = 16;
     public static final int CHUNK_CACHE_WIDTH = 7; // depends on amount of memory available
     public static final int START_CHUNK_X = 3; // what chunk should i spawn in?
     public static final int START_CHUNK_Y = 3;

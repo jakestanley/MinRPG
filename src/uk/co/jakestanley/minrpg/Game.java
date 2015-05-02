@@ -62,8 +62,8 @@ public class Game extends BasicGame {
         graphics.setColor(Color.white);
         graphics.drawString(Items.Names.JAMIE, 10, 40);
 
-        drawSky(graphics);
         world.render(graphics);
+        drawSky(graphics);
         drawCharacter(graphics);
 
         // shading stuff. TODO needs improvement

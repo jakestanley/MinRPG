@@ -39,11 +39,8 @@ public class World {
         worldX = currentChunkX * Main.display.getChunkRenderWidth();
         worldY = currentChunkY * Main.display.getChunkRenderWidth();
 
-//        centerRenderX = Display.RENDER_INITIAL_X;
-//        centerRenderY = Display.RENDER_INITIAL_Y + Main.display.getSkyHeight(); // trying something different
-
-        centerRenderX = 32;
-        centerRenderY = 32 + Main.display.getSkyHeight();
+        centerRenderX = Display.RENDER_INITIAL_X;
+        centerRenderY = Display.RENDER_INITIAL_Y + Main.display.getSkyHeight(); // trying something different
 
         offsetX = 0;
         offsetY = 0;

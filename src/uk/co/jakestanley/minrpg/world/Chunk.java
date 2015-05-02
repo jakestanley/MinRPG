@@ -12,16 +12,10 @@ import java.util.Random;
 public class Chunk {
 
     private Tile[][] tiles;
-    private int x, y; // the chunk position relative to other chunks
-    private int offsetX, offsetY;
     private boolean isGreen;
 
     public Chunk(boolean isGreen){ // TODO many constructors depending on use case
         tiles = new Tile[Display.CHUNK_WIDTH][Display.CHUNK_WIDTH];
-//        this.x = x;
-//        this.y = y;
-//        this.offsetX = 0; // TODO make sure this gets changed soon
-//        this.offsetY = 0;
         this.isGreen = isGreen;
         generateTiles();
     }
@@ -40,42 +34,13 @@ public class Chunk {
 
 //                grass = !grass;
             }
-//            grass = !grass;
-        }
-    }
 
-    /**
-     * Needs to be called before rendering if back into visibility
-     * @param x
-     * @param y
-     */
-    public void spawnAt(int x, int y){
-        this.x = x;
-        this.y = y;
-        this.offsetX = 0;
-        this.offsetY = 0;
+        }
     }
 
     public Chunk(String data){
         // load chunk from data file // TODO much, much later...
     }
-
-    public void setOffsetX(int offsetX){
-        this.offsetX = offsetX;
-    }
-
-    public void setOffsetY(int offsetY){
-        this.offsetY = offsetY;
-    }
-
-    public void setOffsets(int x, int y){
-        offsetX = x;
-        offsetY = y;
-    }
-
-//    public void render(Graphics graphics){
-//        renderAt(x + offsetX, y + Main.display.getSkyHeight() + offsetY, graphics); // TODO remove a lot of the bullshit extra code rather than having everything super complex
-//    }
 
     public void renderAt(int renderFromX, int renderFromY, Graphics graphics){ // TODO will also need some kind of offset
 
