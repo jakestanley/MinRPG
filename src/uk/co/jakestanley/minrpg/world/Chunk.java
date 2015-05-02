@@ -62,7 +62,7 @@ public class Chunk {
 
         for(int x = 0; x < tiles.length; x++) {
             for (int y = 0; y < tiles.length; y++) {
-                graphics.drawImage(tiles[x][y].getImage(), renderTileX, renderTileY);
+                tiles[x][y].render(renderTileX, renderTileY, graphics);
                 renderTileY = renderTileY + Display.TILE_WIDTH;
             }
             renderTileX = renderTileX + Display.TILE_WIDTH; // TODO rename this to TILE_DIMENSIONS
