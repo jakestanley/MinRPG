@@ -1,6 +1,9 @@
 package uk.co.jakestanley.minrpg.characters;
 
+import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 import uk.co.jakestanley.minrpg.Main;
+import uk.co.jakestanley.minrpg.values.Display;
 
 /**
  * Created by stanners on 12/04/2015.
@@ -16,5 +19,8 @@ public class Player extends Character {
     }
 
 
-
+    @Override
+    public Shape getBoundingBox() {
+        return new Rectangle(renderAtX, renderAtY, Display.TILE_WIDTH, Display.TILE_WIDTH);
+    }
 }

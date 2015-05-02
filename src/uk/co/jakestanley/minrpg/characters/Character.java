@@ -3,6 +3,7 @@ package uk.co.jakestanley.minrpg.characters;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Shape;
 
 /**
  * Created by stanners on 11/04/2015.
@@ -62,5 +63,7 @@ public abstract class Character {
     public void render(Graphics graphics){
         graphics.drawImage(getCurrentFrame(), renderAtX, renderAtY);
     }
+
+    public abstract Shape getBoundingBox();
 
 }

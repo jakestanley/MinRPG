@@ -76,10 +76,13 @@ public class Game extends BasicGame {
 
         world.render(graphics);
         drawSky(graphics); // TODO enhance
-        player.render(graphics);
-
 
         // render player
+        player.render(graphics);
+        graphics.setColor(Color.red);
+
+        // drawing the player collision box
+        graphics.draw(player.getBoundingBox());
 
 
 
