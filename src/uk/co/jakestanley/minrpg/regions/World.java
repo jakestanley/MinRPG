@@ -119,11 +119,9 @@ public class World {
         // TODO recalculate visible chunks
     }
 
-    public void render(Graphics graphics){ // TODO world render from. this shouldn't need to be sent to any chunks really, it is determined by the scale, etc
+    public void render(Graphics graphics){
 
-        // TODO calculate where chunks should be rendered
-
-        int renderX = centerRenderX + offsetX; // TODO optimise these variables. it seems like there's too much reassignment going on
+        int renderX = centerRenderX + offsetX;
         int renderY = centerRenderY + offsetY;
         int rcw = Main.display.getChunkRenderWidth();
 
