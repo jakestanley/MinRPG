@@ -37,19 +37,19 @@ public class Game extends BasicGame {
     public void update(GameContainer gameContainer, int i) throws SlickException {
 
         if(gameContainer.getInput().isKeyDown(Input.KEY_UP)){
-            world.modOffsetY(1);
+            world.modY(1);
         }
 
         if(gameContainer.getInput().isKeyDown(Input.KEY_RIGHT)){
-            world.modOffsetX(-1); // TODO set some values
+            world.modX(-1);
         }
 
         if(gameContainer.getInput().isKeyDown(Input.KEY_DOWN)){
-            world.modOffsetY(-1);
+            world.modY(-1);
         }
 
         if(gameContainer.getInput().isKeyDown(Input.KEY_LEFT)){
-            world.modOffsetX(1);
+            world.modX(1);
         }
 
     }
@@ -60,18 +60,19 @@ public class Game extends BasicGame {
         graphics.scale(Main.display.getRenderScale(), Main.display.getRenderScale()); // TODO make more efficient
 
         graphics.setColor(Color.white);
-        graphics.drawString(Items.Names.POKEMON_YELLOW, 10, 40);
+        graphics.drawString(Items.Names.JAMIE, 10, 40);
 
-        world.render(graphics);
         drawSky(graphics);
+        world.render(graphics);
         drawCharacter(graphics);
 
         // shading stuff. TODO needs improvement
-        Color color = new Color(0, 0, 0, shade);
+        Color color = new Color(0, 0, 0, shade); // TODO can probably get rid of this
         graphics.setColor(color);
         graphics.fillRect(0, 0, 900, 600);
 
         world.renderData(graphics);
+//        drawScreenBorder(graphics);
 
     }
 
@@ -81,7 +82,13 @@ public class Game extends BasicGame {
     }
 
     private void drawCharacter(Graphics graphics){
-        graphics.drawImage(c.getCurrentFrame(), Main.display.getCenterTileX(), Main.display.getCenterTileY()); // TODO needs to be relative, etc
+//        graphics.drawImage(c.getCurrentFrame(), Main.display.getCenterTileX(), Main.display.getCenterTileY()); // TODO needs to be relative, etc
+        graphics.drawImage(c.getCurrentFrame(), 0, Main.display.getSkyHeight());
+    }
+
+    private void drawScreenBorder(Graphics graphics){
+        graphics.setColor(Color.red);
+        graphics.drawRect(Main.display.RENDER_INITIAL_X, 100, 50, 50);
     }
 
 

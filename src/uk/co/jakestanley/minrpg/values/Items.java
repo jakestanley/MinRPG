@@ -33,6 +33,10 @@ public class Items {
         public static final String POKEMON_BLUE     = "pokemon blue";
         public static final String POKEMON_YELLOW   = "pokemon yellow";
 
+        // TESTING
+        public static final String COFFEEBOY        = "<3 coffee boy";
+        public static final String JAMIE            = "<3 jamie";
+
     }
 
 

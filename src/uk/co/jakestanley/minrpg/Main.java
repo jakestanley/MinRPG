@@ -22,7 +22,7 @@ public class Main {
             display = new Display(); // use the default scale
             appgc.setDisplayMode(display.getScreenWidth(), display.getScreenHeight(), false);
             appgc.setVSync(true); // jesus h christ this needs to be on
-            appgc.setTargetFrameRate(display.FRAME_RATE);
+            appgc.setTargetFrameRate(display.FRAME_RATE); // TODO remove the /2 after testing screen scrolling
             appgc.start();
         }
         catch (SlickException ex)
