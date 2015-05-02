@@ -27,42 +27,33 @@ public class Display {
     public static final int RENDER_INITIAL_X = 0; // offset from the edge (TODO should be zero when not testing)
     public static final int RENDER_INITIAL_Y = 0; // offset from the edge (TODO should be zero when not testing)
 
-    private int renderScale; // TODO FIX so I know what this is, it's used by graphics.scale
-    private int width;
-    private int height;
+    private int renderTileCenterX;
+    private int renderTileCenterY;
+    private int chunkRenderWidth;
 
     public Display(){ // TODO CONSIDER renaming to RenderConstants
 
-    }
+        // CALCULATE renderTileCenterX
+        renderTileCenterX = (BASE_WIDTH / 2) - (TILE_WIDTH / 2);
 
-    public Display(int scale){
-        // TODO work out what the fuck this was even for
+        // CALCULATE renderTileCenterY
+        int viewHeight = BASE_HEIGHT - SKY_HEIGHT;
+        renderTileCenterY = SKY_HEIGHT + (viewHeight / 2) - (TILE_WIDTH / 2);
+
+        // CALCULATE chunkRenderWidth
+        chunkRenderWidth = TILE_WIDTH * CHUNK_WIDTH;
+
     }
 
     public int getChunkRenderWidth(){
-        int chunkRenderWidth = TILE_WIDTH * CHUNK_WIDTH;
         return chunkRenderWidth;
     }
 
     public int getPlayerRenderX(){
-        return 0; // TODO more than "return 0;"
+        return renderTileCenterX;
     }
     public int getPlayerRenderY(){
-
-        // TODO
-        int viewHeight = BASE_HEIGHT - SKY_HEIGHT;
-
-        System.out.println("Sky height: " + skyHeight);
-        System.out.println("Screen height: " + screenHeight);
-        System.out.println("View height: " + viewHeight);
-
-
-//        int y = skyHeight + (viewHeight / 2) - (getTileWidth() / 2);
-//        y = y / 4;
-//        System.out.println("Player render Y on screen at : " + y);
-        int y = SKY_HEIGHT;
-        return y;
-
+        return renderTileCenterY;
     }
 
 }

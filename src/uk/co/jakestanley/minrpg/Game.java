@@ -38,20 +38,28 @@ public class Game extends BasicGame {
     @Override
     public void update(GameContainer gameContainer, int i) throws SlickException {
 
-        if(gameContainer.getInput().isKeyDown(Input.KEY_UP)){
+        if(gameContainer.getInput().isKeyDown(Input.KEY_UP) || gameContainer.getInput().isKeyDown(Input.KEY_W)){
             world.modY(1);
         }
 
-        if(gameContainer.getInput().isKeyDown(Input.KEY_RIGHT)){
+        if(gameContainer.getInput().isKeyDown(Input.KEY_RIGHT) || gameContainer.getInput().isKeyDown(Input.KEY_D)){
             world.modX(-1);
         }
 
-        if(gameContainer.getInput().isKeyDown(Input.KEY_DOWN)){
+        if(gameContainer.getInput().isKeyDown(Input.KEY_DOWN) || gameContainer.getInput().isKeyDown(Input.KEY_S)){
             world.modY(-1);
         }
 
-        if(gameContainer.getInput().isKeyDown(Input.KEY_LEFT)){
+        if(gameContainer.getInput().isKeyDown(Input.KEY_LEFT) || gameContainer.getInput().isKeyDown(Input.KEY_A)){
             world.modX(1);
+        }
+
+//        if(gameContainer.getInput().isKeyDown(Input.KEY_E)){
+            // If interact key pressed
+//        }
+
+        if(gameContainer.getInput().isKeyPressed(Input.KEY_E)){
+            System.out.println("Interact key pressed");
         }
 
     }

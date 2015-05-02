@@ -140,11 +140,16 @@ public class World {
     public void renderData(Graphics graphics) {
 
         graphics.setColor(Color.white);
-        graphics.drawString("Chunk: " + currentChunkX + ", " + currentChunkY, 20, 30);
-        graphics.drawString("Local: " + localX + ", " + localY, 20, 50);
-        graphics.drawString("World: " + worldX + ", " + worldY, 20, 70);
+        graphics.drawString("RChunk: " + currentChunkX + ", " + currentChunkY, 20, 30);
+        graphics.drawString("RLocal: " + localX + ", " + localY, 20, 50);
+        graphics.drawString("RWorld: " + worldX + ", " + worldY, 20, 70);
         graphics.drawString("Offset: " + offsetX + ", " + offsetY, 20, 90);
         graphics.drawString("Chunk render width: " + Main.display.getChunkRenderWidth(), 200, 30);
+
+        // render player information
+        int playerWorldPosX = worldX + Main.display.getPlayerRenderX() + (Main.display.TILE_WIDTH / 2);
+        int playerWorldPosY = worldY + Main.display.getPlayerRenderY() + (Main.display.TILE_WIDTH / 2) - Main.display.SKY_HEIGHT;
+        graphics.drawString("PWorld: " + playerWorldPosX + ", " + playerWorldPosY, 200, 50);
 
     }
 
