@@ -1,12 +1,13 @@
 package uk.co.jakestanley.minrpg.characters;
 
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 /**
  * Created by stanners on 11/04/2015.
  */
-public class Character {
+public abstract class Character {
 
     private Image   stillUp, stillDown, stillLeft, stillRight,
                     walkUp1, walkUp2, walkDown1, walkDown2,
@@ -14,17 +15,15 @@ public class Character {
 
     private int facing;
 
-    private float x, y;
+    protected int worldPosX, worldPosY; // where the character is in the world, as opposed to on screen
+    protected int renderAtX, renderAtY; // use world pos here instead of world pos in World for player.
 
     private boolean testing;
 
     public Character(String resPath){ // testing
         this.testing = true;
-        this.x = 50;
-        this.y = 50;
         try {
             String imagePath = resPath + "/test.png";
-
             this.test = new Image(imagePath, false, Image.FILTER_NEAREST);
         } catch (SlickException e){
             e.printStackTrace(); // TODO handle
@@ -56,32 +55,12 @@ public class Character {
 
     }
 
-    public Image getCurrentFrame(){
+    public Image getCurrentFrame(){ // TODO iterate through animations
         return test;
     }
 
-    public float getX(){
-        return x;
-    }
-
-    public float getY(){
-        return y;
-    }
-
-    public void moveLeft(){
-        x--;
-    }
-
-    public void moveRight(){
-        x++;
-    }
-
-    public void moveNorth(){
-        y--;
-    }
-
-    public void moveSouth(){
-        y++;
+    public void render(Graphics graphics){
+        graphics.drawImage(getCurrentFrame(), renderAtX, renderAtY);
     }
 
 }

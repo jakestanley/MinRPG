@@ -4,8 +4,6 @@ import org.newdawn.slick.Graphics;
 import uk.co.jakestanley.minrpg.tiles.Tile;
 import uk.co.jakestanley.minrpg.values.Display;
 
-import java.util.Random;
-
 /**
  * Created by stanners on 12/04/2015.
  */
@@ -13,16 +11,16 @@ public class Chunk {
 
     private Tile[][] tiles;
     private boolean isGreen;
+    private boolean isAlternating;
 
     public Chunk(boolean isGreen){ // TODO many constructors depending on use case
         tiles = new Tile[Display.CHUNK_WIDTH][Display.CHUNK_WIDTH];
         this.isGreen = isGreen;
+        this.isAlternating = false; // TODO make nicer
         generateTiles();
     }
 
     public void generateTiles(){
-        Random random = new Random(); // could possible use a static random from somewhere else ? // TODO CONSIDER
-//        boolean grass = true;
 
         for(int x = 0; x < tiles.length; x++){
             for(int y = 0; y < tiles.length; y++){
@@ -32,7 +30,14 @@ public class Chunk {
                     tiles[x][y] = new Tile("res/concept/scenery/somethingelse.png");
                 }
 
-//                grass = !grass;
+                if(isAlternating) {
+                    isGreen = !isGreen;
+                }
+                
+            }
+
+            if(isAlternating) {
+                isGreen = !isGreen;
             }
 
         }
@@ -40,6 +45,14 @@ public class Chunk {
 
     public Chunk(String data){
         // load chunk from data file // TODO much, much later...
+    }
+
+    // generate a random tile
+    public Chunk(){
+        tiles = new Tile[Display.CHUNK_WIDTH][Display.CHUNK_WIDTH];
+        this.isGreen = true;
+        this.isAlternating = true;
+        generateTiles();
     }
 
     public void renderAt(int renderFromX, int renderFromY, Graphics graphics){ // TODO will also need some kind of offset

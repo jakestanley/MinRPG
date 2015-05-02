@@ -2,17 +2,18 @@ package uk.co.jakestanley.minrpg;
 
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Rectangle;
-import uk.co.jakestanley.minrpg.characters.Character;
+import uk.co.jakestanley.minrpg.characters.Player;
 import uk.co.jakestanley.minrpg.regions.World;
-import uk.co.jakestanley.minrpg.values.Items;
 import uk.co.jakestanley.minrpg.values.Display;
+import uk.co.jakestanley.minrpg.values.GameConstants;
+import uk.co.jakestanley.minrpg.values.Items;
 
 /**
  * Created by stanners on 11/04/2015.
  */
 public class Game extends BasicGame {
 
-    private Character c;
+    private Player player;
     private Rectangle sky;
     private World world;
     private float shade;
@@ -26,7 +27,8 @@ public class Game extends BasicGame {
 
     @Override
     public void init(GameContainer gameContainer) throws SlickException {
-        c = new Character("res/concept/pc");
+
+        player = new Player(GameConstants.NEW_CHARACTER_WORLD_X, GameConstants.NEW_CHARACTER_WORLD_Y);
         sky = new Rectangle(0, 0, Display.BASE_WIDTH, Display.SKY_HEIGHT); // wide as the screen
         world = new World(Display.START_CHUNK_X, Display.START_CHUNK_Y); // should start at the centre chunk. only for prototyping now, will change later
         shade = 0.01F;
@@ -57,38 +59,52 @@ public class Game extends BasicGame {
     @Override
     public void render(GameContainer gameContainer, Graphics graphics) throws SlickException {
 
-        graphics.scale(Main.display.getRenderScale(), Main.display.getRenderScale()); // TODO make more efficient
+        // SET GRAPHICS SCALE TO DRAW GAME ELEMENTS
+        float scaleUp = Display.DEFAULT_SCALE;
+        graphics.scale(scaleUp, scaleUp);
 
         graphics.setColor(Color.white);
         graphics.drawString(Items.Names.JAMIE, 10, 40);
 
         world.render(graphics);
-        drawSky(graphics);
-        drawCharacter(graphics);
+        drawSky(graphics); // TODO enhance
+        player.render(graphics);
+
+
+        // render player
+
+
+
 
         // shading stuff. TODO needs improvement
         Color color = new Color(0, 0, 0, shade); // TODO can probably get rid of this
         graphics.setColor(color);
         graphics.fillRect(0, 0, 900, 600);
 
+        // DRAW DEBUG BOXES
+        drawScreenBorder(graphics);
+
+        // SET GRAPHICS SCALE TO DRAW DEBUG STRINGS
+        float scaleDown = 0.25F;
+        graphics.scale(scaleDown, scaleDown);
+
+        // DRAW DEBUG STRINGS
         world.renderData(graphics);
-//        drawScreenBorder(graphics);
 
     }
 
     private void drawSky(Graphics graphics){
         graphics.setColor(Color.lightGray);
-        graphics.fillRect(0, 0, Main.display.getScreenWidth(), Main.display.getSkyHeight());
+        graphics.fillRect(0, 0, Display.BASE_WIDTH, Display.SKY_HEIGHT  );
     }
 
-    private void drawCharacter(Graphics graphics){
-//        graphics.drawImage(c.getCurrentFrame(), Main.display.getCenterTileX(), Main.display.getCenterTileY()); // TODO needs to be relative, etc
-        graphics.drawImage(c.getCurrentFrame(), 0, Main.display.getSkyHeight());
+    private void drawCharacters(Graphics graphics){ // TODO this
+        player.render(graphics);
     }
 
     private void drawScreenBorder(Graphics graphics){
-        graphics.setColor(Color.red);
-        graphics.drawRect(Main.display.RENDER_INITIAL_X, 100, 50, 50);
+        graphics.setColor(Color.red); // TODO sort
+        graphics.drawRect(0, 0, 49, 49);
     }
 
 

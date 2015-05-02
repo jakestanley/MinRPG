@@ -15,7 +15,7 @@ public class World {
 
     private int currentChunkX, currentChunkY;
     private int localX, localY;
-    private int worldX, worldY;
+    private int worldX, worldY; // TODO move this variable into Character
     private int centerRenderX, centerRenderY;
     private int offsetX, offsetY;
 
@@ -40,7 +40,7 @@ public class World {
         worldY = currentChunkY * Main.display.getChunkRenderWidth();
 
         centerRenderX = Display.RENDER_INITIAL_X;
-        centerRenderY = Display.RENDER_INITIAL_Y + Main.display.getSkyHeight(); // trying something different
+        centerRenderY = Display.RENDER_INITIAL_Y + Display.SKY_HEIGHT; // trying something different
 
         offsetX = 0;
         offsetY = 0;
@@ -63,7 +63,7 @@ public class World {
         }
 
         // preset chunks
-        cachedChunks[currentChunkX][currentChunkY] = new Chunk(false);
+        cachedChunks[currentChunkX][currentChunkY] = new Chunk();
     }
 
     // TODO clear up all this messy, wank code
@@ -139,14 +139,11 @@ public class World {
 
     public void renderData(Graphics graphics) {
 
-        graphics.scale(0.5F, 0.5F);
         graphics.setColor(Color.white);
-        graphics.scale(0.5F, 0.5F);
         graphics.drawString("Chunk: " + currentChunkX + ", " + currentChunkY, 20, 30);
         graphics.drawString("Local: " + localX + ", " + localY, 20, 50);
         graphics.drawString("World: " + worldX + ", " + worldY, 20, 70);
-//        graphics.drawString("Render offset: " + initialRenderX + ", " + initialRenderY, 20, 90);
-        graphics.drawString("Offset: " + offsetX + ", " + offsetY, 20, 110);
+        graphics.drawString("Offset: " + offsetX + ", " + offsetY, 20, 90);
         graphics.drawString("Chunk render width: " + Main.display.getChunkRenderWidth(), 200, 30);
 
     }

@@ -16,11 +16,14 @@ public class Main {
 
     public static void main(String[] args){
 
+        int displayWidth = Display.BASE_WIDTH * Display.DEFAULT_SCALE;
+        int displayHeight = Display.BASE_HEIGHT * Display.DEFAULT_SCALE;
+
         try
         {
             AppGameContainer appgc = new AppGameContainer(new Game("MinRPG"));
             display = new Display(); // use the default scale
-            appgc.setDisplayMode(display.getScreenWidth(), display.getScreenHeight(), false);
+            appgc.setDisplayMode(displayWidth, displayHeight, false);
             appgc.setVSync(true); // jesus h christ this needs to be on
             appgc.setTargetFrameRate(display.FRAME_RATE); // TODO remove the /2 after testing screen scrolling
             appgc.start();

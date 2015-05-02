@@ -7,21 +7,16 @@ public class Display {
 
     // TODO CONSIDER using nested classes
 
-    // I SHOULD TOTALLY IMPLEMENT A GAME BOY MODE
-    public static final int GB_WIDTH = 160;
-    public static final int GB_HEIGHT = 144;
-
-    // BASE SCALE IS DOUBLE GAME BOY RESOLUTION
-    public static final int BASE_WIDTH = 320;
-    public static final int BASE_HEIGHT = 288;
+    // EMULATED RESOLUTION
+    public static final int BASE_WIDTH = 160;
+    public static final int BASE_HEIGHT = 144;
 
     // SCALE
-    public static final int BASE_SCALE = 2; // TODO work out what this was for, i forgot, but it's important...
-    public static final int DEFAULT_SCALE = 2;
+    public static final int DEFAULT_SCALE = 4; // SCALE TO BLOW UP ELEMENTS
     public static final int FRAME_RATE = 30; // apparently the original game boy had a max frame rate of 59.7 fps
 
     // VIEW COMPONENTS
-    public static final int SKY_HEIGHT = 72; // TODO this needs to be more dynamic, like a percentage.
+    public static final int SKY_HEIGHT = 36; // TODO this needs to be more dynamic, like a percentage. 36 is 1/4th the screen
 
     // WORLD COMPONENTS
     public static final int TILE_WIDTH = 8; // tiles will be 8px square, maybe 16, i'm unsure yet...
@@ -32,61 +27,42 @@ public class Display {
     public static final int RENDER_INITIAL_X = 0; // offset from the edge (TODO should be zero when not testing)
     public static final int RENDER_INITIAL_Y = 0; // offset from the edge (TODO should be zero when not testing)
 
-
-    private int scale;
     private int renderScale; // TODO FIX so I know what this is, it's used by graphics.scale
     private int width;
     private int height;
-    private int skyHeight; // wat
 
-    public Display(){
-        this.scale = DEFAULT_SCALE;
-        renderScale = BASE_SCALE * scale;
-        width = BASE_WIDTH * scale;
-        height = BASE_HEIGHT * scale;
+    public Display(){ // TODO CONSIDER renaming to RenderConstants
+
     }
 
     public Display(int scale){
-        this.scale = scale;
-        renderScale = BASE_SCALE * scale;
-        width = BASE_WIDTH * scale;
-        height = BASE_HEIGHT * scale;
-    }
-
-    public int getScreenWidth(){
-        return width;
-    }
-
-    public int getScreenHeight(){
-        return height;
-    }
-
-    public int getRenderScale(){
-        return renderScale;
-    }
-
-    public int getSkyHeight(){ // get the proper values in real time
-        return SKY_HEIGHT / BASE_SCALE; // seems to work ok
-    }
-
-    public int getTileWidth(){
-        return TILE_WIDTH; // TODO set correct value
-    }
-
-    public int getCenterTileX(){
-//        return (width / 2) / scale;
-        return GB_WIDTH / 2; // TODO FIX
-//        return 50;
-    }
-
-    public int getCenterTileY(){
-        return (GB_HEIGHT + getSkyHeight()) / 2; // TODO FIX and do some stuff with sky height
-//        return 50;
+        // TODO work out what the fuck this was even for
     }
 
     public int getChunkRenderWidth(){
-        int chunkRenderWidth = getTileWidth() * CHUNK_WIDTH;
+        int chunkRenderWidth = TILE_WIDTH * CHUNK_WIDTH;
         return chunkRenderWidth;
+    }
+
+    public int getPlayerRenderX(){
+        return 0; // TODO more than "return 0;"
+    }
+    public int getPlayerRenderY(){
+
+        // TODO
+        int viewHeight = BASE_HEIGHT - SKY_HEIGHT;
+
+        System.out.println("Sky height: " + skyHeight);
+        System.out.println("Screen height: " + screenHeight);
+        System.out.println("View height: " + viewHeight);
+
+
+//        int y = skyHeight + (viewHeight / 2) - (getTileWidth() / 2);
+//        y = y / 4;
+//        System.out.println("Player render Y on screen at : " + y);
+        int y = SKY_HEIGHT;
+        return y;
+
     }
 
 }
