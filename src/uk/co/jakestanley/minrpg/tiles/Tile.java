@@ -4,6 +4,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Rectangle;
 import uk.co.jakestanley.minrpg.values.Display;
 
 /**
@@ -17,15 +18,20 @@ public class Tile {
     private Image image;
     private int tileType;
     private boolean isImpassable;
+    private Color color;
 
-    // TODO different constructors for respaths and drawings, or do some nesting
+    // for bounding box generation
+    private int boundingStartX, boundingStartY;
 
-    public Tile(Color color){
+    public Tile(Color color, boolean isImpassable){ // TODO polish these constructors
         tileType = DIRECT_TILE;
+        this.isImpassable = isImpassable;
+        this.color = color;
     }
 
-    public Tile(String resPath){
+    public Tile(String resPath, boolean isImpassable){
         tileType = TEXTURE_TILE;
+        this.isImpassable = isImpassable;
         try {
             image = new Image(resPath, false, Image.FILTER_NEAREST);
         } catch (SlickException e) {
@@ -38,11 +44,24 @@ public class Tile {
         if(tileType == TEXTURE_TILE){
             graphics.drawImage(image, x, y);
         } else if(tileType == DIRECT_TILE){
-            graphics.drawRect(x, y, Display.TILE_WIDTH, Display.TILE_WIDTH);
+            graphics.setColor(color);
+            graphics.fillRect(x, y, Display.TILE_WIDTH, Display.TILE_WIDTH);
         } else {
             System.err.println("Tile type was not specified. Rendering nothing");
         }
 
+        // bounding box stuff
+        boundingStartX = x;
+        boundingStartY = y;
+
+    }
+
+    public Rectangle getBoundingBox(){
+        Rectangle boundingBox = null;
+        if(isImpassable){
+            boundingBox = new Rectangle(boundingStartX, boundingStartY, Display.TILE_WIDTH, Display.TILE_WIDTH);
+        }
+        return boundingBox;
     }
 
 }

@@ -2,9 +2,12 @@ package uk.co.jakestanley.minrpg.regions;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.geom.Rectangle;
 import uk.co.jakestanley.minrpg.Main;
 import uk.co.jakestanley.minrpg.values.Display;
 import uk.co.jakestanley.minrpg.world.Chunk;
+
+import java.util.ArrayList;
 
 /**
  * Created by stanners on 12/04/2015.
@@ -151,6 +154,24 @@ public class World {
         int playerWorldPosY = worldY + Main.display.getPlayerRenderY() + (Main.display.TILE_WIDTH / 2) - Main.display.SKY_HEIGHT;
         graphics.drawString("PWorld: " + playerWorldPosX + ", " + playerWorldPosY, 200, 50);
 
+    }
+
+    public ArrayList<Rectangle> getBoundingBoxes(){
+        ArrayList<Rectangle> boundingBoxes = new ArrayList<Rectangle>();
+
+        // TODO find a more efficient way of getting from all the relevant cached chunks
+
+        boundingBoxes.addAll(cachedChunks[currentChunkX-1][currentChunkY-1].getBoundingBoxes());
+        boundingBoxes.addAll(cachedChunks[currentChunkX][currentChunkY-1].getBoundingBoxes());
+        boundingBoxes.addAll(cachedChunks[currentChunkX+1][currentChunkY-1].getBoundingBoxes());
+        boundingBoxes.addAll(cachedChunks[currentChunkX-1][currentChunkY].getBoundingBoxes());
+        boundingBoxes.addAll(cachedChunks[currentChunkX][currentChunkY].getBoundingBoxes());
+        boundingBoxes.addAll(cachedChunks[currentChunkX+1][currentChunkY].getBoundingBoxes());
+        boundingBoxes.addAll(cachedChunks[currentChunkX-1][currentChunkY+1].getBoundingBoxes());
+        boundingBoxes.addAll(cachedChunks[currentChunkX][currentChunkY+1].getBoundingBoxes());
+        boundingBoxes.addAll(cachedChunks[currentChunkX+1][currentChunkY+1].getBoundingBoxes());
+
+        return boundingBoxes;
     }
 
 }

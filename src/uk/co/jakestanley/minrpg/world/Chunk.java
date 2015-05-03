@@ -1,8 +1,13 @@
 package uk.co.jakestanley.minrpg.world;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.geom.Rectangle;
 import uk.co.jakestanley.minrpg.tiles.Tile;
 import uk.co.jakestanley.minrpg.values.Display;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by stanners on 12/04/2015.
@@ -22,12 +27,20 @@ public class Chunk {
 
     public void generateTiles(){
 
+        Random random = new Random();
+
         for(int x = 0; x < tiles.length; x++){
             for(int y = 0; y < tiles.length; y++){
-                if(isGreen){
-                    tiles[x][y] = new Tile("res/concept/scenery/someground.png");
+                if(random.nextInt(9) == 3){
+                    tiles[x][y] = new Tile(Color.red, true);
                 } else {
-                    tiles[x][y] = new Tile("res/concept/scenery/somethingelse.png");
+                    if(isGreen){
+//                    tiles[x][y] = new Tile(Color.green, false); // renders color
+                        tiles[x][y] = new Tile("res/concept/scenery/someground.png", false);
+                    } else {
+//                    tiles[x][y] = new Tile(Color.blue, false); // renders color
+                        tiles[x][y] = new Tile("res/concept/scenery/somethingelse.png", false);
+                    }
                 }
 
                 if(isAlternating) {
@@ -68,6 +81,23 @@ public class Chunk {
             renderTileX = renderTileX + Display.TILE_WIDTH; // TODO rename this to TILE_DIMENSIONS
             renderTileY = renderFromY;
         }
+    }
+
+    public ArrayList<Rectangle> getBoundingBoxes(){
+
+        ArrayList<Rectangle> boxes = new ArrayList<Rectangle>();
+
+        for(int x = 0; x < tiles.length; x++) {
+            for (int y = 0; y < tiles.length; y++) {
+                Rectangle box = tiles[x][y].getBoundingBox();
+                if(box != null){
+                    boxes.add(box);
+                }
+            }
+        }
+
+        return boxes;
+
     }
 
 }

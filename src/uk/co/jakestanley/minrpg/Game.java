@@ -1,12 +1,15 @@
 package uk.co.jakestanley.minrpg;
 
 import org.newdawn.slick.*;
+import org.newdawn.slick.geom.Line;
 import org.newdawn.slick.geom.Rectangle;
 import uk.co.jakestanley.minrpg.characters.Player;
 import uk.co.jakestanley.minrpg.regions.World;
 import uk.co.jakestanley.minrpg.values.Display;
 import uk.co.jakestanley.minrpg.values.GameConstants;
 import uk.co.jakestanley.minrpg.values.Items;
+
+import java.util.ArrayList;
 
 /**
  * Created by stanners on 11/04/2015.
@@ -19,6 +22,10 @@ public class Game extends BasicGame {
     private float shade;
     private boolean polarity;
 
+    // bounding box stuff
+//    private Rectangle playerBoundingBox;
+    private Line playerBoundingNorth, playerBoundingEast, playerBoundingSouth, playerBoundingWest;
+    private ArrayList<Rectangle> boundingBoxes;
 
 
     public Game(String gameName){
@@ -33,34 +40,80 @@ public class Game extends BasicGame {
         world = new World(Display.START_CHUNK_X, Display.START_CHUNK_Y); // should start at the centre chunk. only for prototyping now, will change later
         shade = 0.01F;
         polarity = true;
+
+        // getting necessary collision detection information for the first time
+//        playerBoundingBox = player.getBoundingBox();
+
+        // get bounding lines
+        playerBoundingNorth = player.getBoundingNorth();
+        playerBoundingEast  = player.getBoundingEast();
+        playerBoundingSouth = player.getBoundingSouth();
+        playerBoundingWest  = player.getBoundingWest();
+
+        // get all "visible" bounding boxes
+        boundingBoxes = world.getBoundingBoxes();
     }
 
     @Override
     public void update(GameContainer gameContainer, int i) throws SlickException {
 
+        boolean canMoveNorth = true;
+        boolean canMoveEast = true;
+        boolean canMoveSouth = true;
+        boolean canMoveWest = true;
+
+        for(Rectangle box : boundingBoxes){
+            if(box.intersects(playerBoundingNorth)){
+                canMoveNorth = false;
+            }
+            if(box.intersects(playerBoundingEast)){
+                canMoveEast = false;
+            }
+            if(box.intersects(playerBoundingSouth)){
+                canMoveSouth = false;
+            }
+            if(box.intersects(playerBoundingWest)){
+                canMoveWest = false;
+            }
+        }
+
         if(gameContainer.getInput().isKeyDown(Input.KEY_UP) || gameContainer.getInput().isKeyDown(Input.KEY_W)){
-            world.modY(1);
+            if(canMoveNorth){
+                world.modY(1);
+            }
         }
 
         if(gameContainer.getInput().isKeyDown(Input.KEY_RIGHT) || gameContainer.getInput().isKeyDown(Input.KEY_D)){
-            world.modX(-1);
+            if(canMoveEast){
+                world.modX(-1);
+            }
         }
 
         if(gameContainer.getInput().isKeyDown(Input.KEY_DOWN) || gameContainer.getInput().isKeyDown(Input.KEY_S)){
-            world.modY(-1);
+            if(canMoveSouth){
+                world.modY(-1);
+            }
         }
 
         if(gameContainer.getInput().isKeyDown(Input.KEY_LEFT) || gameContainer.getInput().isKeyDown(Input.KEY_A)){
-            world.modX(1);
+            if(canMoveWest){
+                world.modX(1);
+            }
         }
-
-//        if(gameContainer.getInput().isKeyDown(Input.KEY_E)){
-            // If interact key pressed
-//        }
 
         if(gameContainer.getInput().isKeyPressed(Input.KEY_E)){
             System.out.println("Interact key pressed");
         }
+
+        // get new collision detection information
+//        playerBoundingBox = player.getBoundingBox();
+
+        // get bounding lines
+        playerBoundingNorth = player.getBoundingNorth();
+        playerBoundingEast  = player.getBoundingEast();
+        playerBoundingSouth = player.getBoundingSouth();
+        playerBoundingWest  = player.getBoundingWest();
+        boundingBoxes = world.getBoundingBoxes();
 
     }
 
@@ -81,19 +134,14 @@ public class Game extends BasicGame {
         player.render(graphics);
         graphics.setColor(Color.red);
 
-        // drawing the player collision box
-        graphics.draw(player.getBoundingBox());
-
-
-
-
         // shading stuff. TODO needs improvement
         Color color = new Color(0, 0, 0, shade); // TODO can probably get rid of this
         graphics.setColor(color);
         graphics.fillRect(0, 0, 900, 600);
 
-        // DRAW DEBUG BOXES
-        drawScreenBorder(graphics);
+        // DRAW BOUNDING BOXES
+//        drawScreenBorder(graphics);
+        drawBoundingBoxes(graphics);
 
         // SET GRAPHICS SCALE TO DRAW DEBUG STRINGS
         float scaleDown = 0.25F;
@@ -118,6 +166,20 @@ public class Game extends BasicGame {
         graphics.drawRect(0, 0, 49, 49);
     }
 
+    private void drawBoundingBoxes(Graphics graphics){
+        // render player collision box in yellow
+        graphics.setColor(Color.yellow);
+//        graphics.draw(playerBoundingBox);
+        graphics.draw(playerBoundingNorth);
+        graphics.draw(playerBoundingEast);
+        graphics.draw(playerBoundingSouth);
+        graphics.draw(playerBoundingWest);
 
+        // render other collision boxes in white
+        graphics.setColor(Color.white);
+        for(Rectangle boundingBox : boundingBoxes){
+            graphics.draw(boundingBox);
+        }
+    }
 
 }
