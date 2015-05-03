@@ -12,7 +12,9 @@ import java.util.logging.Logger;
  */
 public class Main {
 
+    public static boolean DEVELOPMENT = true;
     public static Display display;
+    public static Game game;
 
     public static void main(String[] args){
 
@@ -21,7 +23,8 @@ public class Main {
 
         try
         {
-            AppGameContainer appgc = new AppGameContainer(new Game("MinRPG"));
+            game = new Game("Believe");
+            AppGameContainer appgc = new AppGameContainer(game);
             display = new Display(); // use the default scale
             appgc.setDisplayMode(displayWidth, displayHeight, false);
             appgc.setVSync(true); // jesus h christ this needs to be on
