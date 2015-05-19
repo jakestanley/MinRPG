@@ -21,7 +21,7 @@ public class Tile {
     private Color color;
 
     // for bounding box generation
-    private int boundingStartX, boundingStartY;
+    private int boundingStartX, boundingStartY, renderX, renderY;
 
     public Tile(Color color, boolean isImpassable){ // TODO polish these constructors
         tileType = DIRECT_TILE;
@@ -40,20 +40,26 @@ public class Tile {
         }
     }
 
-    public void render(int x, int y, Graphics graphics){
-        if(tileType == TEXTURE_TILE){
-            graphics.drawImage(image, x, y);
-        } else if(tileType == DIRECT_TILE){
-            graphics.setColor(color);
-            graphics.fillRect(x, y, Display.TILE_WIDTH, Display.TILE_WIDTH);
-        } else {
-            System.err.println("Tile type was not specified. Rendering nothing");
-        }
+    public void setPos(int x, int y){ //
+
+        renderX = x;
+        renderY = y;
 
         // bounding box stuff
         boundingStartX = x;
         boundingStartY = y;
 
+    }
+
+    public void render(Graphics graphics){ // RENDER SHOULDN'T HANDLE THIS MUCH LOGIC
+        if(tileType == TEXTURE_TILE){
+            graphics.drawImage(image, renderX, renderY);
+        } else if(tileType == DIRECT_TILE){
+            graphics.setColor(color);
+            graphics.fillRect(renderX, renderY, Display.TILE_WIDTH, Display.TILE_WIDTH);
+        } else {
+            System.err.println("Tile type was not specified. Rendering nothing");
+        }
     }
 
     public Rectangle getBoundingBox(){

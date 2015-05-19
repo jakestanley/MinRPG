@@ -92,7 +92,7 @@ public class World {
 //            updateChunks(); // TODO this should only reload chunks if necessary. make this more complex
             offsetX = -(Main.display.getChunkRenderWidth() - 1);
         }
-
+        updateChunkPositions();
     }
 
     public void modY(int modY){
@@ -114,6 +114,7 @@ public class World {
 //            updateChunks();
             offsetY = -(Main.display.getChunkRenderWidth() - 1);
         }
+        updateChunkPositions();
     }
 
     public void update(){ // TODO this function
@@ -122,21 +123,39 @@ public class World {
         // TODO recalculate visible chunks
     }
 
+    public void updateChunkPositions(){
+
+        int renderX = centerRenderX + offsetX;
+        int renderY = centerRenderY + offsetY;
+        int rcw = Main.display.getChunkRenderWidth();
+
+        cachedChunks[currentChunkX-1][currentChunkY-1]  .setPos(renderX - rcw,    renderY - rcw);
+        cachedChunks[currentChunkX][currentChunkY-1]    .setPos(renderX,          renderY - rcw);
+        cachedChunks[currentChunkX+1][currentChunkY-1]  .setPos(renderX + rcw,    renderY - rcw);
+        cachedChunks[currentChunkX-1][currentChunkY]    .setPos(renderX - rcw,    renderY);
+        cachedChunks[currentChunkX][currentChunkY]      .setPos(renderX,          renderY);
+        cachedChunks[currentChunkX+1][currentChunkY]    .setPos(renderX + rcw,    renderY);
+        cachedChunks[currentChunkX-1][currentChunkY+1]  .setPos(renderX - rcw,    renderY + rcw);
+        cachedChunks[currentChunkX][currentChunkY+1]    .setPos(renderX,          renderY + rcw);
+        cachedChunks[currentChunkX+1][currentChunkY+1]  .setPos(renderX + rcw,    renderY + rcw);
+
+    }
+
     public void render(Graphics graphics){
 
         int renderX = centerRenderX + offsetX;
         int renderY = centerRenderY + offsetY;
         int rcw = Main.display.getChunkRenderWidth();
 
-        cachedChunks[currentChunkX-1][currentChunkY-1]  .renderAt(renderX - rcw,    renderY - rcw,  graphics); // northwest chunk
-        cachedChunks[currentChunkX][currentChunkY-1]    .renderAt(renderX,          renderY - rcw,  graphics); // north chunk
-        cachedChunks[currentChunkX+1][currentChunkY-1]  .renderAt(renderX + rcw,    renderY - rcw,  graphics); // northeast chunk
-        cachedChunks[currentChunkX-1][currentChunkY]    .renderAt(renderX - rcw,    renderY,        graphics); // west chunk
-        cachedChunks[currentChunkX][currentChunkY]      .renderAt(renderX,          renderY,        graphics); // center chunk
-        cachedChunks[currentChunkX+1][currentChunkY]    .renderAt(renderX + rcw,    renderY,        graphics); // east chunk
-        cachedChunks[currentChunkX-1][currentChunkY+1]  .renderAt(renderX - rcw,    renderY + rcw,  graphics); // southwest chunk
-        cachedChunks[currentChunkX][currentChunkY+1]    .renderAt(renderX,          renderY + rcw,  graphics); // south chunk
-        cachedChunks[currentChunkX+1][currentChunkY+1]  .renderAt(renderX + rcw,    renderY + rcw,  graphics); // southeast chunk
+        cachedChunks[currentChunkX-1][currentChunkY-1]  .render(graphics); // northwest chunk
+        cachedChunks[currentChunkX][currentChunkY-1]    .render(graphics); // north chunk
+        cachedChunks[currentChunkX+1][currentChunkY-1]  .render(graphics); // northeast chunk
+        cachedChunks[currentChunkX-1][currentChunkY]    .render(graphics); // west chunk
+        cachedChunks[currentChunkX][currentChunkY]      .render(graphics); // center chunk
+        cachedChunks[currentChunkX+1][currentChunkY]    .render(graphics); // east chunk
+        cachedChunks[currentChunkX-1][currentChunkY+1]  .render(graphics); // southwest chunk
+        cachedChunks[currentChunkX][currentChunkY+1]    .render(graphics); // south chunk
+        cachedChunks[currentChunkX+1][currentChunkY+1]  .render(graphics); // southeast chunk
 
     }
 

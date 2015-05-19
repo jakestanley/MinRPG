@@ -68,18 +68,29 @@ public class Chunk {
         generateTiles();
     }
 
-    public void renderAt(int renderFromX, int renderFromY, Graphics graphics){ // TODO will also need some kind of offset
+    public void setPos(int renderFromX, int renderFromY){
 
         int renderTileX = renderFromX; // ideally the edges of chunks should match up. could PC be a tile?
         int renderTileY = renderFromY;
 
         for(int x = 0; x < tiles.length; x++) {
             for (int y = 0; y < tiles.length; y++) {
-                tiles[x][y].render(renderTileX, renderTileY, graphics);
+                tiles[x][y].setPos(renderTileX, renderTileY);
                 renderTileY = renderTileY + Display.TILE_WIDTH;
             }
-            renderTileX = renderTileX + Display.TILE_WIDTH; // TODO rename this to TILE_DIMENSIONS
+            renderTileX = renderTileX + Display.TILE_WIDTH; // TODO CONSIDER renaming this to TILE_DIMENSIONS?
             renderTileY = renderFromY;
+        }
+
+    }
+
+    public void renderAt(Graphics graphics){ // TODO will also need some kind of offset
+
+        for(int x = 0; x < tiles.length; x++) {
+            for (int y = 0; y < tiles.length; y++) {
+                tiles[x][y].render(graphics);
+
+            }
         }
     }
 
