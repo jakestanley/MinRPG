@@ -40,6 +40,7 @@ public class Game extends BasicGame {
         world = new World(Display.START_CHUNK_X, Display.START_CHUNK_Y); // should start at the centre chunk. only for prototyping now, will change later
         shade = 0.01F;
         polarity = true;
+        world.updateChunkPositions();
 
         // getting necessary collision detection information for the first time
 //        playerBoundingBox = player.getBoundingBox();
