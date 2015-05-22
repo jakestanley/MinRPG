@@ -84,7 +84,7 @@ public class Chunk {
 
     }
 
-    public void renderAt(Graphics graphics){ // TODO will also need some kind of offset
+    public void render(Graphics graphics){ // TODO will also need some kind of offset
 
         for(int x = 0; x < tiles.length; x++) {
             for (int y = 0; y < tiles.length; y++) {
